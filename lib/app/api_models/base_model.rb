@@ -14,21 +14,30 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'logger'
-require 'xmlrpc/server'
-require 'pp'
+class BaseModel
 
-require 'app/api_models/base_model'
-require 'app/api_models/catalog_product'
+  def list
+    LOG.info "list method called"
+    false
+  end
 
-LOG =  Logger.new($stdout)
+  def info
+    LOG.info "info method called"
+    false
+  end
 
-s = XMLRPC::Server.new
-s.add_handler("catalog_product", CatalogProduct.new)
-s.serve
+  def create
+    LOG.info "create method called"
+    false
+  end
 
+  def update
+    LOG.info "update method called"
+    false
+  end
 
-
-#require 'xmlrpc/client'
-#server = XMLRPC::Client.new("127.0.0.1", "/RPC2", 8080)
-#puts server.call("sample.sum_and_difference", 1, 2)
+  def delete
+    LOG.info "delete method called"
+    false
+  end
+end
