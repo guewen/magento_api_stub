@@ -14,21 +14,14 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'logger'
-require 'xmlrpc/server'
-require 'pp'
+module MagentoXMLRPCStub
+  class CatalogProduct < BaseModel
 
-require 'app/api_models/base_model'
-require 'app/api_models/catalog_product'
+    magento_model_name 'catalog_product'
 
-LOG =  Logger.new($stdout)
-
-s = XMLRPC::Server.new
-s.add_handler("catalog_product", CatalogProduct.new)
-s.serve
-
-
-
-#require 'xmlrpc/client'
-#server = XMLRPC::Client.new("127.0.0.1", "/RPC2", 8080)
-#puts server.call("sample.sum_and_difference", 1, 2)
+    def info(product_id_or_sku, store_view=nil, attributes=nil)
+      attributes ||= {}
+      super(product_id_or_sku)
+    end
+  end
+end
