@@ -1,4 +1,4 @@
-#    FakeMagentoAPI
+#    MagentoXMLRPCStub
 #    Copyright (C) 2011 Guewen Baconnier
 #
 #    This program is free software: you can redistribute it and/or modify

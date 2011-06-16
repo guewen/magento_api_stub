@@ -1,4 +1,4 @@
-#    FakeMagentoAPI
+#    MagentoXMLRPCStub
 #    Copyright (C) 2011 Guewen Baconnier
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -17,15 +17,34 @@
 module MagentoXMLRPCStub
   class BaseModel
 
-    attr_accessor :data
-
+    ###############################
+    # Class methods
     class << self
-      attr_accessor :model_name
+      attr_reader :model_name, :model_classes
+    end
 
-      def magento_model_name(name)
-        @model_name = name
+    def self.magento_model_name(name)
+      @model_name = name
+    end
+
+    @model_classes = []
+
+    def self.inherited(subclass)
+      BaseModel.model_classes
+      BaseModel.model_classes << subclass
+    end
+
+    def self.class_for(model_method)
+      model = model_method.split('.')[0]
+      BaseModel.model_classes.each do |sub_model|
+        return sub_model if sub_model.model_name == model
       end
     end
+
+    ###############################
+    # Instance methods
+
+    attr_accessor :data
 
     def initialize(log, data)
       @log = log
@@ -33,19 +52,18 @@ module MagentoXMLRPCStub
     end
 
     def model
-      raise "No model defined on this class" unless self.class.model_name
+      raise XMLRPC::FaultException.new(1, "No Magento model defined on class #{self.class}") unless self.class.model_name
       self.class.model_name
     end
 
-    def list
+    def list(filters=[])
       @log.info "list method called"
-      @data[model] || []
+      @data || []
     end
 
     def info(id)
-      pp @data[model][id]
-      @log.info "info method called"
-      @data[model][id] 
+      @log.info "info method called with id #{id}"
+      @data[id]
     end
 
     def create
