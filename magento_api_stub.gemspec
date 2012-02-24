@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.authors     = ["Guewen Baconnier"]
   s.email       = ["guewen.baconnier@camptocamp.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Magento API Stub: Middleware between Magento API and Client}
+  s.description = %q{Can be used as middleware between Magento API and a client, but also to fake magento in order to run automation tests for external system based on the Magento's API' without a running Magento instance.}
 
-  s.rubyforge_project = "."
+  s.rubyforge_project = "magento_api_stub"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
