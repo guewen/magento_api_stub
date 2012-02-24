@@ -1,0 +1,1 @@
+require 'magento_api_stub'
